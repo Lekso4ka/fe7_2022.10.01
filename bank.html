@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            padding: 50px;
+            gap: 50px;
+        }
+        .card {
+            width: 200px;
+            height: 120px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px #000;
+            display: grid;
+            grid-template-rows: repeat(3, 1fr);
+            gap: 10px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        form {
+            display: grid;
+            gap: 20px;
+        }
+        .row {
+            display: grid;
+            gap: 6px;
+            width: 300px;
+        }
+        .img {
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: right;
+        }
+        .number {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+        }
+    </style>
+</head>
+<body>
+    <form action="">
+        <div class="row">
+            <label for="name">Имя пользователя</label>
+            <input type="text" id="name">
+        </div>
+        <div class="row">
+            <label for="number">Номер карты</label>
+            <input type="number" id="number">
+        </div>
+        <div class="row">
+            <label for="type">Платежная система</label>
+            <select id="type">
+                <option value="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Visa_2021.svg/1600px-Visa_2021.svg.png?20210725080425">Visa</option>
+                <option selected value="https://upload.wikimedia.org/wikipedia/commons/a/a4/Mastercard_2019_logo.svg">MasterCard</option>
+                <option value="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/%D0%9C%D0%B8%D1%80_%D0%A2%D0%92_logo.svg/640px-%D0%9C%D0%B8%D1%80_%D0%A2%D0%92_logo.svg.png?20160110160022">МИР</option>
+            </select>
+        </div>
+    </form>
+    <div class="wrapper">
+        <div class="card">
+            <div class="img"></div>
+            <div class="number"></div>
+            <div class="user"></div>
+        </div>
+    </div>
+    <script>
+        let fName = document.querySelector("#name");
+        let fType = document.querySelector("#type");
+        let fNumber = document.querySelector("#number");
+
+        let img = document.querySelector(".img");
+        let num = document.querySelector(".number");
+        let user = document.querySelector(".user");
+
+        img.style.backgroundImage = `url(${fType.value})`;
+        user.innerText = "Ivanov Ivan";
+        function setNumber(n) {
+            let html = ""
+            for (let i = 0; i < n.length; i++) {
+                if (i === 0) {
+                    html += "<span>" + n[i];
+                } else if (i % 4 === 0) {
+                    html += `</span><span>${n[i]}`;
+                } else if (i === 15) {
+                    html += `${n[i]}</span>`;
+                } else {
+                    html += n[i];
+                }
+            }
+            return html;
+        }
+        num.innerHTML = setNumber("0000000000000000");
+
+        fName.addEventListener("input", e => {
+            user.innerText = e.target.value;
+        })
+        fNumber.addEventListener("change", e => {
+            num.innerHTML = setNumber(e.target.value);
+        })
+        fType.addEventListener("change", e => {
+            img.style.backgroundImage = `url(${e.target.value})`;
+        })
+    </script>
+</body>
+</html>
