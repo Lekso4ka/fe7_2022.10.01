@@ -8,7 +8,17 @@ function changeBg(el) {
     el.style.backgroundColor = getColor(70, 256, 0, 256);
 }
 let n = 0;
-square.onclick = function() {
+// square.onclick = function() {
+//     n++;
+//     this.innerHTML = link.outerHTML + `Clicked ${n} times`;
+// }
+
+square.addEventListener("click", function(e) {
     n++;
     this.innerHTML = link.outerHTML + `Clicked ${n} times`;
-}
+});
+square.addEventListener("click", e => {
+    // console.log(e);
+    changeBg(e.target); // e.target - тот, кто вызвал событие
+})
+
