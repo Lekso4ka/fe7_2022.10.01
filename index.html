@@ -7,11 +7,61 @@
     <title>DOM</title>
     <link rel="stylesheet" href="style.css">
     <script src="functions.js"></script>
+    <style>
+        p {
+            padding: 0 50px;
+        }
+        #div1, #div2 {
+            padding: 10px ;
+            margin: 10px;
+        }
+        #div1 p {
+            cursor: pointer;
+            padding: 10px;
+            background-color: #8e44ad;
+            color: #ecf0f1;
+        }
+        #div2 p {
+            cursor: pointer;
+            padding: 10px;
+            background-color: #ecf0f1;
+            color: #8e44ad;
+        }
+    </style>
 </head>
 <body class="flexible">
     <div class="square flexible">
         <a href="" class="btn flexible">Click</a>
     </div>
+    <section class="card">
+        <div id="div1">
+            <p>Пункт 1</p>
+            <p>Пункт 2</p>
+            <p>Пункт 3</p>
+        </div>
+    
+        <div id="div2">
+            <p>Пункт 4</p>
+            <p>Пункт 5</p>
+            <p>Пункт 6</p>
+        </div>
+     </section>
     <script src="script.js"></script>
+    <script>
+        const left = document.querySelector("#div1");
+        const right = document.querySelector("#div2");
+
+        let elements = document.querySelectorAll("#div1 p, #div2 p");
+        console.log(elements);
+        for (let i = 0, cnt = elements.length; i < cnt; i++) {
+            const el = elements[i];
+            el.addEventListener("click", e => {
+                e.stopPropagation();
+                const daddy = e.target.parentElement;
+                console.log(daddy);
+                daddy === left ? right.append(e.target) : left.append(e.target); 
+            });
+        }
+    </script>
 </body>
 </html>
